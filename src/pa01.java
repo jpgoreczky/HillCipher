@@ -53,6 +53,8 @@ public class pa01 {
                 keyMatrix[i][j] = key.nextInt();
             }
         }
+
+        return keyMatrix;
     }
 
     // public static String readPlainText(String plainTextFile) throws FileNotFoundException {
