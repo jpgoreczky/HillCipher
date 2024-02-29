@@ -25,8 +25,8 @@ import java.util.*;
 public class pa01 {
     public static void main(String[] args) throws Exception {
         // Get file names from command line
-        File keyFile = new File(args[0]);
-        File plainTextFile = new File(args[1]);
+        String  keyFile= args[0];
+        String plainTextFile = args[1];
 
         // Read key file matrix
         int[][] keyMatrix = readMatrix(keyFile);
@@ -35,16 +35,16 @@ public class pa01 {
         String plainText = readPlainText(plainTextFile);
 
         // Encrypt plaintext using Hill Cipher
-        // String cipherText = encrypt(plainText, keyMatrix);
+        String cipherText = encrypt(plainText, keyMatrix);
 
         // Print out cipher
-        // printMatrix(keyMatrix);
+        printMatrix(keyMatrix);
         printPlainText(plainText);
-        // printCipherText(cipherText);        
+        printCipherText(cipherText);        
     }
 
-    public static int[][] readMatrix(File keyFile) throws FileNotFoundException {
-        Scanner key = new Scanner(keyFile);
+    public static int[][] readMatrix(String keyFile) throws FileNotFoundException {
+        Scanner key = new Scanner(new File(keyFile));
         int n = key.nextInt();
         int[][] keyMatrix = new int[n][n];
         
@@ -59,21 +59,21 @@ public class pa01 {
         return keyMatrix;
     }
 
-    public static String readPlainText(File plainTextFile) throws FileNotFoundException {
-        Scanner plainText = new Scanner(plainTextFile);
-        String text = "";
+    public static String readPlainText(String plainTextFile) throws FileNotFoundException {
+        StringBuilder text = new StringBuilder();
+        Scanner textScanner = new Scanner(new File (plainTextFile));
 
         // Read the plaintext file
-        while (plainText.hasNextLine()) {
-            text += plainText.next();
+        while (textScanner.hasNextLine()) {
+            text.append(textScanner.nextLine() + "\n");
         }
 
         // Remove all non-alphabetic characters and convert to lowercase
-        text = text.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        text = new StringBuilder(text.toString().replaceAll("[^a-zA-Z]", "").toLowerCase());
 
-        plainText.close();
+        textScanner.close();
 
-        return text;
+        return text.toString();
     }
 
     // Encrypt plaintext using Hill Cipher
@@ -99,7 +99,6 @@ public class pa01 {
                 // Keep text in ascii alphabet
                 cipherText[letter + r] = (char) (cipherText[letter + r] % 26 + 'a');
             }
-
         }
 
         return cipherText.toString();
@@ -110,22 +109,23 @@ public class pa01 {
         System.out.println("Key Matrix:");
         for (int i = 0; i < keyMatrix.length; i++) {
             for (int j = 0; j < keyMatrix.length; j++) {
-                System.out.print(keyMatrix[i][j] + " ");
+                System.out.print(" " + keyMatrix[i][j] + " ");
             }
             System.out.println();
         }
     }
     
     public static void printPlainText(String plainText) {
-        // Print out the plaintext
         System.out.println();
         System.out.println("Plaintext:");
         System.out.println(plainText);
     }
 
-    // public static void printCipherText(String cipherText) {
-        
-    // }
+    public static void printCipherText(String cipherText) {
+        System.out.println();
+        System.out.println("Ciphertext:");
+        System.out.println(cipherText);
+    }
 }
 
 /*=============================================================================
