@@ -32,7 +32,7 @@ public class pa01 {
         int[][] keyMatrix = readMatrix(keyFile);
 
         // Read plaintext file
-        String plainText = readPlainText(plainTextFile);
+        String plainText = readPlainText(plainTextFile, keyMatrix.length);
 
         // Encrypt plaintext using Hill Cipher
         String cipherText = encrypt(plainText, keyMatrix);
@@ -59,7 +59,7 @@ public class pa01 {
         return keyMatrix;
     }
 
-    public static String readPlainText(String plainTextFile) throws FileNotFoundException {
+    public static String readPlainText(String plainTextFile, int n) throws FileNotFoundException {
         StringBuilder text = new StringBuilder();
         Scanner textScanner = new Scanner(new File (plainTextFile));
 
@@ -70,6 +70,11 @@ public class pa01 {
 
         // Remove all non-alphabetic characters and convert to lowercase
         text = new StringBuilder(text.toString().replaceAll("[^a-zA-Z]", "").toLowerCase());
+        
+        // Pad the plaintext with 'x' to match the size of the key matrix
+        while (text.length() % n != 0) {
+            text.append('x');
+        }
 
         textScanner.close();
 
@@ -78,28 +83,9 @@ public class pa01 {
 
     // Encrypt plaintext using Hill Cipher
     public static String encrypt(String plainText, int[][] keyMatrix) {
-        char[] cipherText = new char[plainText.length() + 1];
+        StringBuilder cipherText = new StringBuilder();
 
-        for (int letter = 0; letter < plainText.length(); letter += keyMatrix.length) {
-            // Convert the plaintext to a matrix
-            // Multiply the key matrix by the plaintext matrix
-            // Convert the resulting matrix back to a string
-            for (int r = 0 ; r < keyMatrix.length; r++) {
-                for (int c = 0; c < keyMatrix.length; c++) {
-                    // System.out.println(keyMatrix[r][c]);
-                    if ((letter + c) < plainText.length()) {
-                        // System.out.print(plainText.charAt(letter + c));
-                        cipherText[letter + r] = (char) (keyMatrix[r][c] * (plainText.charAt(letter + c) - 'a'));
-                    }
-                    else {
-                        // System.out.print(" ");
-                        cipherText[letter + r] = (char) (keyMatrix[r][c] * ('x' - 'a'));
-                    }
-                }
-                // Keep text in ascii alphabet
-                cipherText[letter + r] = (char) (cipherText[letter + r] % 26 + 'a');
-            }
-        }
+
 
         return cipherText.toString();
     }
