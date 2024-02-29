@@ -77,13 +77,44 @@ public class pa01 {
     }
 
     // Encrypt plaintext using Hill Cipher
-    // public static String encrypt(String plainText, int[][] keyMatrix) {
-        
-    // }
+    public static String encrypt(String plainText, int[][] keyMatrix) {
+        char[] cipherText = new char[plainText.length() + 1];
+
+        for (int letter = 0; letter < plainText.length(); letter += keyMatrix.length) {
+            // Convert the plaintext to a matrix
+            // Multiply the key matrix by the plaintext matrix
+            // Convert the resulting matrix back to a string
+            for (int r = 0 ; r < keyMatrix.length; r++) {
+                for (int c = 0; c < keyMatrix.length; c++) {
+                    // System.out.println(keyMatrix[r][c]);
+                    if ((letter + c) < plainText.length()) {
+                        // System.out.print(plainText.charAt(letter + c));
+                        cipherText[letter + r] = (char) (keyMatrix[r][c] * (plainText.charAt(letter + c) - 'a'));
+                    }
+                    else {
+                        // System.out.print(" ");
+                        cipherText[letter + r] = (char) (keyMatrix[r][c] * ('x' - 'a'));
+                    }
+                }
+                // Keep text in ascii alphabet
+                cipherText[letter + r] = (char) (cipherText[letter + r] % 26 + 'a');
+            }
+
+        }
+
+        return cipherText.toString();
+    }
     
-    // public static void printMatrix(int[][] keyMatrix) {
-        
-    // }
+    public static void printMatrix(int[][] keyMatrix) {
+        System.out.println();
+        System.out.println("Key Matrix:");
+        for (int i = 0; i < keyMatrix.length; i++) {
+            for (int j = 0; j < keyMatrix.length; j++) {
+                System.out.print(keyMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
     
     public static void printPlainText(String plainText) {
         // Print out the plaintext
