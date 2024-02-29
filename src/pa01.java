@@ -32,14 +32,14 @@ public class pa01 {
         int[][] keyMatrix = readMatrix(keyFile);
 
         // Read plaintext file
-        // String plainText = readPlainText(plainTextFile);
+        String plainText = readPlainText(plainTextFile);
 
         // Encrypt plaintext using Hill Cipher
         // String cipherText = encrypt(plainText, keyMatrix);
 
         // Print out cipher
         // printMatrix(keyMatrix);
-        // printPlainText(plainText);
+        printPlainText(plainText);
         // printCipherText(cipherText);        
     }
 
@@ -48,18 +48,33 @@ public class pa01 {
         int n = key.nextInt();
         int[][] keyMatrix = new int[n][n];
         
+        // Read the key file matrix
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 keyMatrix[i][j] = key.nextInt();
             }
         }
+        key.close();
 
         return keyMatrix;
     }
 
-    // public static String readPlainText(String plainTextFile) throws FileNotFoundException {
-        
-    // }
+    public static String readPlainText(File plainTextFile) throws FileNotFoundException {
+        Scanner plainText = new Scanner(plainTextFile);
+        String text = "";
+
+        // Read the plaintext file
+        while (plainText.hasNextLine()) {
+            text += plainText.next();
+        }
+
+        // Remove all non-alphabetic characters and convert to lowercase
+        text = text.replaceAll("[^a-zA-Z]", "").toLowerCase();
+
+        plainText.close();
+
+        return text;
+    }
 
     // Encrypt plaintext using Hill Cipher
     // public static String encrypt(String plainText, int[][] keyMatrix) {
