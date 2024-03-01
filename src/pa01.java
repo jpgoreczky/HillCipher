@@ -85,7 +85,6 @@ public class pa01 {
     public static String encrypt(String plainText, int[][] keyMatrix) {
         StringBuilder cipherText = new StringBuilder();
 
-        // Encrypt the plaintext
         // Traverse the plaintext in blocks of size n (size of key matrix)
         for (int i = 0; i < plainText.length(); i += keyMatrix.length) {
             // Traverse the key matrix
@@ -117,13 +116,29 @@ public class pa01 {
     public static void printPlainText(String plainText) {
         System.out.println();
         System.out.println("Plaintext:");
-        System.out.println(plainText);
+        
+        // Print PlainText 80 letters per row
+        for (int i = 0; i < plainText.length(); i++) {
+            if (i > 0 && i % 80 == 0) {
+                System.out.println();
+            }
+            System.out.print(plainText.charAt(i));
+        }
+        System.out.println();   
     }
 
     public static void printCipherText(String cipherText) {
         System.out.println();
         System.out.println("Ciphertext:");
-        System.out.println(cipherText);
+        
+        // Print cipherText 80 letters per row
+        for (int i = 0; i < cipherText.length(); i++) {
+            if (i > 0 && i % 80 == 0) {
+                System.out.println();
+            }
+            System.out.print(cipherText.charAt(i));
+        }
+        System.out.println(); 
     }
 }
 
