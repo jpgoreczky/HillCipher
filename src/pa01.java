@@ -85,7 +85,20 @@ public class pa01 {
     public static String encrypt(String plainText, int[][] keyMatrix) {
         StringBuilder cipherText = new StringBuilder();
 
-
+        // Encrypt the plaintext
+        // Traverse the plaintext in blocks of size n (size of key matrix)
+        for (int i = 0; i < plainText.length(); i += keyMatrix.length) {
+            // Traverse the key matrix
+            for (int j = 0; j < keyMatrix.length; j++) {
+                int sum = 0;
+                // Calculate the sum of the product of the key matrix and the plaintext
+                for (int k = 0; k < keyMatrix.length; k++) {
+                    sum += (keyMatrix[j][k] * (plainText.charAt(i + k) - 'a'));
+                }
+                // Append the sum to the cipherText
+                cipherText.append((char) ((sum % 26) + 'a'));
+            }
+        }
 
         return cipherText.toString();
     }
