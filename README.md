@@ -32,7 +32,7 @@ java pa01 key_matrix.txt plaintext.txt
 3	5
 ```
 
-- __Plaintext File__: The plaintext file should contain the plaintext to be encrypted. It can included character's supported by Java's 'Scanner' class. For example:
+- __Plaintext File__: The plaintext file should contain the plaintext to be encrypted. It can included character's supported by Java's `Scanner` class. For example:
 ```plaintext
 "Not only is the Universe stranger than we think, it is stranger than we can think." ~ Werner Heisenberg
 ```
@@ -40,4 +40,3 @@ java pa01 key_matrix.txt plaintext.txt
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
