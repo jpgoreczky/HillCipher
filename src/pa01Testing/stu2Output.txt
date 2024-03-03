@@ -4,7 +4,7 @@ Key matrix:
   55   9  31  44
    3  18  21  45
   15  19  71  46
-
+      
 Plaintext:
 halfacenturyagomitplayedacriticalroleinthedevelopmentoftheflightsoftwarefornasas
 apolloprogramwhichlandedhumansonthemoonforthefirsttimeinoneofthemanycontributors
