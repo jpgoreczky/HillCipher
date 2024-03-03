@@ -18,18 +18,21 @@
 | Due Date: 03/06/2024
 +===========================================================================*/
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class pa01 {
     public static void main(String[] args) throws Exception {
         // Get file names from command line
+        
+        if (args.length < 2) {
+            System.out.println("Usage: java pa01 key_file plaintext_file");
+            return;
+        }
+        
         String  keyFile= args[0];
         String plainTextFile = args[1];
-
-        // printSourceProgram(keyFile);
-
+        
         // Read key file matrix
         int[][] keyMatrix = readMatrix(keyFile);
 
@@ -42,7 +45,9 @@ public class pa01 {
         // Print out cipher
         printMatrix(keyMatrix);
         printPlainText(plainText);
-        printCipherText(cipherText);        
+        printCipherText(cipherText);     
+        
+       
     }
 
     public static int[][] readMatrix(String keyFile) throws FileNotFoundException {
@@ -66,14 +71,22 @@ public class pa01 {
         Scanner textScanner = new Scanner(new File (plainTextFile));
 
         // Read the plaintext file
-        while (textScanner.hasNextLine()) {
-            text.append(textScanner.nextLine() + "\n");
+        try (BufferedReader br = new BufferedReader(new FileReader(plainTextFile))) {
+            String line;
+            // Read each line of the file
+            while ((line = br.readLine()) != null) {
+                // Append each line to the StringBuilder
+                text.append(line);
+            }
+        // If there's an exception, print the stack trace
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        
         // Remove all non-alphabetic characters and convert to lowercase
         text = new StringBuilder(text.toString().replaceAll("[^a-zA-Z]", "").toLowerCase());
-        
-        // Pad the plaintext with 'x' to match the size of the key matrix
+
+        // Pad the chunk with 'x' to match the size of the key matrix
         while (text.length() % n != 0) {
             text.append('x');
         }
@@ -106,7 +119,7 @@ public class pa01 {
     
     public static void printMatrix(int[][] keyMatrix) {
         System.out.println();
-        System.out.println("Key Matrix:");
+        System.out.println("Key matrix:");
         for (int i = 0; i < keyMatrix.length; i++) {
             System.out.print("  ");
 
