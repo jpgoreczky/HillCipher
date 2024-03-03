@@ -28,6 +28,8 @@ public class pa01 {
         String  keyFile= args[0];
         String plainTextFile = args[1];
 
+        // printSourceProgram(keyFile);
+
         // Read key file matrix
         int[][] keyMatrix = readMatrix(keyFile);
 
@@ -106,8 +108,16 @@ public class pa01 {
         System.out.println();
         System.out.println("Key Matrix:");
         for (int i = 0; i < keyMatrix.length; i++) {
+            System.out.print("  ");
+
             for (int j = 0; j < keyMatrix.length; j++) {
-                System.out.print(" " + keyMatrix[i][j] + " ");
+                // Format the number with a leading space if it's a single digit
+                String formattedNumber = (keyMatrix[i][j] < 10) ? " " + keyMatrix[i][j] : Integer.toString(keyMatrix[i][j]);
+                System.out.print(formattedNumber);
+
+                if (j < keyMatrix.length - 1) {
+                    System.out.print("  ");
+                }
             }
             System.out.println();
         }
